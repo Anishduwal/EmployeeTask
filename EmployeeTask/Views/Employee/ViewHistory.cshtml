@@ -1,0 +1,73 @@
+﻿@model IEnumerable<EmployeeTask.Models.EmployeeJobHistory>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="col-6 mt-3 my-3 card-title">
+        <h3>Employee Job History</h3>
+    </div>
+
+
+    <div class=" col-6 template-demo  float-end">
+        <a href="@Url.Action("Index")" class="  btn  btn-sm btn-danger float-end  btn-icon-text ">
+            <i class="fa fa-chevron-left"></i>&nbsp; Back
+        </a>
+    </div>
+</div>
+<div class="col-md-12 mt-2 grid-margin stretch-card  ">
+    <div class="card">
+        <div class="card mt-2">
+            <div class="card-body" id="MainitemList">
+                <h4 class="card-title">Employee History List</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="order-listing" class="table table-striped dataTable table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>
+                                        @Html.DisplayNameFor(model => model.Positions.PositionName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.StartDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EndDate)
+                                        </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int sn = 0;
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(++sn)</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Positions.PositionName)
+                                            </td>
+                                            <td>
+                                                @item.StartDate.ToString("yyyy-MM-dd")
+                                            </td>
+                                            <td>
+                                                @item.EndDate.ToString("yyyy-MM-dd")
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="btn btn-sm" href="@Url.Action("EditHistory", new { id = item.EmployeeJobHistoryId })" data-original-title="Edit" data-placement="top"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

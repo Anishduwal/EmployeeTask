@@ -1,0 +1,230 @@
+﻿@model EmployeeTask.Models.EmployeeModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="col-6 mt-3 my-3 card-title">
+        <h3>Employee </h3>
+    </div>
+
+
+    <div class=" col-6 template-demo  float-end">
+        <a href="@Url.Action("Index")" class="  btn  btn-sm btn-danger float-end  btn-icon-text ">
+            <i class="fa fa-chevron-left"></i>&nbsp; Back
+        </a>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Create</h4>
+            @using (Html.BeginForm("Create", null, FormMethod.Post, new { enctype = "multipart/form-data", id="MainForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row form-group">
+
+                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control required", id="FirstName" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control required", id="MiddleName" } })
+                        @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control required", id="LastName" } })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control required", id="Address" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control required", id="Email"} })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control required", id="Salary" } })
+                        @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.EmployeeCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.EmployeeCode, new { htmlAttributes = new { @class = "form-control required", id="EmployeeCode" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <input type="date" name="StartDate" id="StartDate" class="form-control" required="" />
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <input type="date" name="EndDate" id="EndDate" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group col-6">
+                    @Html.LabelFor(model => model.PositionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("PositionId", null, "-- Select --", htmlAttributes: new { @class = "form-control search-select", @Name = "PositionId", @id = "PositionId"})
+                        @Html.ValidationMessageFor(model => model.PositionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    @Html.LabelFor(model => model.EmployeeStartDate, "Job Start Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <input type="date" name="EmployeeStartDate" id="EmployeeStartDate" class="form-control" required="" />
+                        @Html.ValidationMessageFor(model => model.EmployeeStartDate, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.EmployeeEndDate, "Job End Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <input type="date" name="EmployeeEndDate" id="EmployeeEndDate" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.EmployeeEndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-md-1">
+                    <div style="float: right; display:inline-block;">
+                        <input type="submit" id="btnSave" value="Save" class="btn btn-success" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $("#namesearch").on("keyup", function () {
+        var txtenter = $(this).val();
+        $("table tr").each(function (results) {
+            if (results !== 0) {
+                var id = $(this).find("td:nth-child(2)").text();
+                if (id.indexOf(txtenter) !== 0 && id.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+
+    $("#addresssearch").on("keyup", function () {
+        var txtenter = $(this).val();
+        $("table tr").each(function (results) {
+            if (results !== 0) {
+                var id = $(this).find("td:nth-child(3)").text();
+                if (id.indexOf(txtenter) !== 0 && id.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+
+    $("#numbersearch").on("keyup", function () {
+        var txtenter = $(this).val();
+        $("table tr").each(function (results) {
+            if (results !== 0) {
+                var id = $(this).find("td:nth-child(4)").text();
+                if (id.indexOf(txtenter) !== 0 && id.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+
+    $(function () {
+        LoadData();
+        $("#btnSave").click(function () {
+            //alert("");
+            var std = {};
+            std.id = $('#id').val();
+            std.FirstName = $("#FirstName").val();
+            std.MiddleName = $("#MiddleName").val();
+            std.LastName = $("#LastName").val();
+            std.Address = $("#Address").val();
+            std.Email = $('#Email').val();
+            std.Salary = $("#Salary").val();
+            std.EmployeeCode = $("#EmployeeCode").val();
+            std.PositionId = $("#PositionId").val();
+            std.StartDate = $("#StartDate").val();
+            std.EndDate = $("#EndDate").val();
+            std.EmployeeStartDate = $("#EmployeeStartDate").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Read", "Student")',
+                data: '{model: ' + JSON.stringify(std) + '}',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Data has been added successfully.");
+                    LoadData();
+                    $('#id').val("");
+                    $('#FirstName').val("");
+                    $('#MiddleName').val("");
+                    $('#LastName').val("");
+                    $('#Address').val("");
+                    $('#Email').val("");
+                    $('#Salary').val("");
+                    $('#EmployeeCode').val("");
+                    $('#PositionId').val("");
+                    $('#StartDate').val("");
+                    $('#EndDate').val("");
+                    $('#EmployeeStartDate').val("");
+                    $('#btnSave').val("Save");
+                },
+                error: function () {
+                    alert("Error while inserting data");
+                }
+            });
+            return false;
+        });
+    });
+
+    //$(function () {
+    //    $('form').validate({
+    //        rules: {
+    //            email_address: {
+    //                required: true,
+    //                remote: {
+    //                    url: "your_script.php"
+    //                }
+    //            }
+    //        },
+    //        debug: true,
+    //        submitHandler: function () { alert('ok'); }
+    //    });
+
+
+    //});
+
+
+</script>

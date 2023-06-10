@@ -1,0 +1,39 @@
+﻿@model EmployeeTask.Models.Position
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="col-6 mt-3 my-3 card-title">
+        <h3>Position</h3>
+    </div>
+
+    <div class=" col-6 template-demo  float-end">
+        <a href="@Url.Action("Index")" class="btn  btn-sm btn-danger float-end  btn-icon-text ">
+            <i class="fa fa-chevron-left"></i>&nbsp; Back
+        </a>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Create</h4>
+            @using (Html.BeginForm("Create", null, FormMethod.Post, new { @class = "noModal", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @*<input type="hidden" name="PersonId" />*@
+                <div class="col-md-6">
+                    <label for="PositionName">Position Name:</label>
+                    <input type="text" name="PositionName" id="PositionName" />
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2 pull-right">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

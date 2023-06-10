@@ -1,0 +1,201 @@
+﻿@model IEnumerable<EmployeeTask.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .focused {
+        border: 2px solid red !important;
+    }
+</style>
+<div class="row">
+    <div class="col-6">
+        <h3> Employee Details </h3>
+    </div>
+    <div class="float-lg-right col-6 pull-right template-demo">
+        <a href="@Url.Action("Create")" class="float-end btn btn-warning  btn-rounded btn-sm btn-icon-text">
+            <i class="fas fa-plus"></i>&nbsp;Add New
+        </a>
+        <p>
+            <button class="btn btn-primary float-end btn btn-sm btn-success btn-icon-text" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Filter Panel
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                    <h4 class="card-title">Filter Panel</h4>
+                    @using (Html.BeginForm("SearchitemList", null, FormMethod.Post, new { @class = "noModal" }))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row form-group" style="font-weight:bold;">
+                            <div class="col-md-2">
+                                <label class="control-label" for="">Select Email</label>
+                            </div>
+
+                            <div class="col-md-4">
+                                <input type="text" id="email" data-toggle="toggle" data-target="SubitemList" form-control>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="control-label" for="">Select Employee Code</label>
+                            </div>
+
+                            <div class="col-md-4">
+                                <input type="text" id="employeecode" data-toggle="toggle" data-target="SubitemList" form-control>
+                            </div>
+                        </div>
+
+                    }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card  ">
+    <div class="card">
+        <div class="card-body collapse" id="collapseExample">
+            <h4 class="card-title">Filter Panel</h4>
+            @using (Html.BeginForm("SearchitemList", null, FormMethod.Post, new { @class = "noModal" }))
+            {
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row form-group" style="font-weight:bold;">
+                    <div class="col-md-2">
+                        <label class="control-label" for="">Select Email</label>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <input type="text" id="email" data-toggle="toggle" data-target="SubitemList" form-control>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="control-label" for="">Select Employee Code</label>
+                    </div>
+
+                    <div class="col-md-4">
+                        <input type="text" id="employeecode" data-toggle="toggle" data-target="SubitemList" form-control>
+                    </div>
+                </div>
+                
+            }
+
+        </div>
+    </div>
+</div>
+<div class="col-md-12 mt-2 grid-margin stretch-card  ">
+    <div class="card">
+
+        <div class="card mt-2">
+            <div class="card-body" id="MainitemList">
+                <h4 class="card-title">List</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="order-listing" class="table table-striped dataTable table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Persons.FirstName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Persons.Address)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Persons.Email)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Salary)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.StartDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EndDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EmployeeCode)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Positions.PositionName)
+                                        </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int sn = 0;
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(++sn)</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Persons.FirstName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Persons.Address)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Persons.Email)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Salary)
+                                            </td>
+                                            <td>
+                                                @item.StartDate.ToString("yyyy-MM-dd")
+                                            </td>
+                                            <td>
+                                                @if (item.EndDate.HasValue)
+                                                {
+                                                    <span> @item.EndDate.Value.ToString("yyyy-MM-dd") </span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EmployeeCode)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Positions.PositionName)
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="btn btn-sm" href="@Url.Action("UpdateEmployee", new { id = item.EmployeeId })" data-original-title="Edit" data-placement="top"><i class="fa fa-edit"></i>&nbsp; Update Employee</a>
+                                                <a class="btn btn-xs  btn-green tooltips" href="@Url.Action("ViewHistory", new { id=item.EmployeeId})" data-original-title="View" data-placement="top"><i class="fa fa-eye"></i>&nbsp; History</a>
+                                                <a class="btn btn-sm" href="@Url.Action("Delete", new { id = item.EmployeeId })" data-original-title="Remove" data-placement="top"><i class="fa fa-trash"></i>&nbsp; Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(".dataTable").DataTable();
+        });
+
+        function DeleteItem(id) {
+            var del = { id: id };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete", "Employee")',
+                data: JSON.stringify(del),
+                contentType: 'application/json, charset= utf-8',
+                success: function (data) {
+                    alert(data.Message);
+                },
+                error: function () {
+                    alert('Could not delete the employee.')
+                }
+            });
+        }
+
+    </script>
+                }

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<EmployeeTask.Models.Position>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="col">
+    <a href="@Url.Action("Create")"> Create Person</a>
+
+    <table class="table datatable" id="showData">
+
+        <tr>
+            <td>S.N</td>
+            <td>Position Name</td>
+            <td>Action</td>
+        </tr>
+
+        @if (Model != null)
+        {
+            var i = 1;
+
+            @foreach (var data in Model)
+            {
+                <tr>
+                    <td>@(i++)</td>
+                    <td>@data.PositionName</td>
+                    <td>
+                        <a class="btn btn-sm" href="@Url.Action("Edit", new { id = data.PositionId })" data-original-title="Edit" data-placement="top"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                        @*<a class="btn btn-xs  btn-green tooltips" href="@Url.Action("Details", new { id=item.prd01uin})" data-original-title="View" data-placement="top"><i class="fa fa-eye"></i></a>*@
+
+                        <a class="btn btn-sm" href="@Url.Action("Delete", new { id = data.PositionId })" data-original-title="Remove" data-placement="top"><i class="fa fa-trash"></i>&nbsp; Delete</a>
+                    </td>
+                </tr>
+            }
+
+        }
+
+        else
+        {
+            <h2>No any position available</h2>
+        }
+
+    </table>
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#showData').DataTable();
+    });  
+</script>
