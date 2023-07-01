@@ -6,45 +6,54 @@
 }
 <div class="col">
     <a href="@Url.Action("Create")"> Create Person</a>
+    <div class="col-md-12 mt-2 grid-margin stretch-card  ">
+        <div class="card">
+            <div class="card mt-2">
+                <table class="table table-striped dataTable table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <td>S.N</td>
+                            <td>Position Name</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            var i = 1;
 
-    <table class="table datatable" id="showData">
+                            @foreach (var data in Model)
+                            {
+                                <tr>
+                                    <td>@(i++)</td>
+                                    <td>@data.PositionName</td>
+                                    <td>
+                                        <a class="btn btn-sm" href="@Url.Action("Edit", new { id = data.PositionId })" data-original-title="Edit" data-placement="top"><i class="fa fa-edit"></i>&nbsp; Edit</a>
+                                        @*<a class="btn btn-xs  btn-green tooltips" href="@Url.Action("Details", new { id=item.prd01uin})" data-original-title="View" data-placement="top"><i class="fa fa-eye"></i></a>*@
 
-        <tr>
-            <td>S.N</td>
-            <td>Position Name</td>
-            <td>Action</td>
-        </tr>
+                                        <a class="btn btn-sm" href="@Url.Action("Delete", new { id = data.PositionId })" data-original-title="Remove" data-placement="top"><i class="fa fa-trash"></i>&nbsp; Delete</a>
+                                    </td>
+                                </tr>
+                            }
 
-        @if (Model != null)
-        {
-            var i = 1;
+                        }
 
-            @foreach (var data in Model)
-            {
-                <tr>
-                    <td>@(i++)</td>
-                    <td>@data.PositionName</td>
-                    <td>
-                        <a class="btn btn-sm" href="@Url.Action("Edit", new { id = data.PositionId })" data-original-title="Edit" data-placement="top"><i class="fa fa-edit"></i>&nbsp; Edit</a>
-                        @*<a class="btn btn-xs  btn-green tooltips" href="@Url.Action("Details", new { id=item.prd01uin})" data-original-title="View" data-placement="top"><i class="fa fa-eye"></i></a>*@
+                        else
+                        {
+                            <h2>No any position available</h2>
+                        }
+                    </tbody>
+                </table>
 
-                        <a class="btn btn-sm" href="@Url.Action("Delete", new { id = data.PositionId })" data-original-title="Remove" data-placement="top"><i class="fa fa-trash"></i>&nbsp; Delete</a>
-                    </td>
-                </tr>
-            }
-
-        }
-
-        else
-        {
-            <h2>No any position available</h2>
-        }
-
-    </table>
-
+            </div>
+        </div>
+    </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#showData').DataTable();
-    });  
-</script>
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(".dataTable").DataTable();
+        });
+    </script>
+}

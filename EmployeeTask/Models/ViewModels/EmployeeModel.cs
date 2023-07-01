@@ -8,7 +8,7 @@ namespace EmployeeTask.Models
         public int PersonId { get; set; }
         public int PositionId { get; set; }
         public string FirstName { get; set; }
-        public string MiddleName { get; set; }
+        public string? MiddleName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
@@ -19,7 +19,9 @@ namespace EmployeeTask.Models
         public Nullable<DateTime> EndDate { get; set; }
         public Int64 EmployeeCode { get; set; }
         public bool IsDisabled { get; set; }
-        public DateOnly EmployeeStartDate { get; set; }
-        public DateOnly? EmployeeEndDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime EmployeeStartDate { get; set; }
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> EmployeeEndDate { get; set; }
     }
 }

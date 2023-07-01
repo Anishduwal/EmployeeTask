@@ -15,7 +15,7 @@ namespace EmployeeTask.Controllers
         }
         public IActionResult Index()
         {
-            var data = dbContext.Positions.ToList();
+            var data = dbContext.Positions.OrderBy(x => x.PositionName).ToList();
             return View(data);
         }
 

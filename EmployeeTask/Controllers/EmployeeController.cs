@@ -3,6 +3,7 @@ using EmployeeTask.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace EmployeeTask.Controllers
 {
@@ -57,10 +58,10 @@ namespace EmployeeTask.Controllers
                 EmployeeJobHistory empJobHistory = new EmployeeJobHistory();
                 empJobHistory.PositionId = model.PositionId;
                 empJobHistory.EmployeeId = data.EmployeeId;
-                empJobHistory.StartDate = model.EmployeeStartDate;
+                empJobHistory.StartDate = DateOnly.FromDateTime(model.EmployeeStartDate);
                 if (model.EmployeeEndDate.HasValue)
                 {
-                    empJobHistory.EndDate = model.EmployeeEndDate.Value;
+                    empJobHistory.EndDate = DateOnly.FromDateTime(model.EmployeeEndDate.Value);
                 }
                 dbContext.EmployeeJobHistories.Add(empJobHistory);
                 dbContext.SaveChanges();
@@ -132,18 +133,20 @@ namespace EmployeeTask.Controllers
         }
         public IActionResult ViewHistory(int id)
         {
-            var data = dbContext.EmployeeJobHistories.Include(x => x.Positions).Where(x => x.EmployeeId == id).ToList();
+            var data = dbContext.EmployeeJobHistories.Include(x => x.Positions).Include(x => x.Employees).Where(x => x.EmployeeId == id).ToList();
             return View(data);
         }
 
         public IActionResult EditHistory(int id)
         {
             ViewBag.PositionId = new SelectList(dbContext.Positions.ToList(), "PositionId", "PositionName");
-            var findEmployeeJob = dbContext.EmployeeJobHistories.Find(id);
+            var findEmployeeJob = dbContext.EmployeeJobHistories.FirstOrDefault(x => x.EmployeeId == id);
             EmployeeHistoryVM empHistory = new EmployeeHistoryVM()
             {
                 EmployeeJobHistoryId = findEmployeeJob.EmployeeJobHistoryId,
             };
+            empHistory.EmployeeId = id;
+            empHistory.PositionId = findEmployeeJob.PositionId;
             empHistory.StartDate = new DateTime(findEmployeeJob.StartDate.Year, findEmployeeJob.StartDate.Month, findEmployeeJob.StartDate.Day);
             empHistory.EndDate = new DateTime(findEmployeeJob.EndDate.Year, findEmployeeJob.EndDate.Month, findEmployeeJob.EndDate.Day);
             return View(empHistory);
@@ -151,7 +154,9 @@ namespace EmployeeTask.Controllers
         [HttpPost]
         public IActionResult SaveHistory(EmployeeHistoryVM model)
         {
-            var data = dbContext.EmployeeJobHistories.Find(model.EmployeeJobHistoryId);
+            var data = dbContext.EmployeeJobHistories.FirstOrDefault(x => x.EmployeeId == model.EmployeeId);
+            var employee = dbContext.Employees.FirstOrDefault(x => x.EmployeeId == model.EmployeeId);
+            employee.PositionId = model.PositionId;
             data.PositionId = model.PositionId;
             data.StartDate = DateOnly.FromDateTime(model.StartDate);
             data.EndDate = DateOnly.FromDateTime(model.EndDate);
@@ -175,7 +180,7 @@ namespace EmployeeTask.Controllers
                 {
                     list = list.Where(x => x.Persons.Email == email).ToList();
                 }
-                else if (employeecode == null)
+                if (employeecode == null)
                 {
                     list = list.ToList();
                 }
